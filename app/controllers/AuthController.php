@@ -10,13 +10,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = $userModel->findUserByUsername($usuario);
 
     if (!$user) {
-        echo "El usuario no existe en la base de datos.";
-    } elseif (hash('sha256', $password) !== $user['password']) {
+        echo "El usuario no existe.";
+    } elseif (hash('sha256', $password) != $user['password']) {
         echo "Las contraseñas NO coinciden.";
     } else {
-        echo "Inicio de sesión exitoso!";
         $_SESSION['usuario'] = $user['usuario'];
         $_SESSION['rol'] = $user['rol'];
+
         if ($user['rol'] === 'admin') {
             header("Location: ../views/admin.php");
         } else {

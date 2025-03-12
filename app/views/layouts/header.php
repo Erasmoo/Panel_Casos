@@ -11,6 +11,8 @@ if (!isset($_SESSION['usuario'])) {
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <link rel="stylesheet" href="../../public/css/style.css">
+    <link rel="stylesheet" href="../../public/css/admin.css">
+    <link rel="stylesheet" href="../../public/css/usuario.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 </head>
