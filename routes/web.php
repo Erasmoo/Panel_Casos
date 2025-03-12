@@ -15,3 +15,4 @@ if ($_SERVER['REQUEST_URI'] == '/login') {
     require 'app/views/login.php';
 }
 ?>
+

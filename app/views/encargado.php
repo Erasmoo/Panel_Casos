@@ -5,14 +5,16 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] != 'encargado') {
     exit();
 }
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Panel Encargado</title>
-</head>
-<body>
-    <h2>Bienvenido, <?php echo $_SESSION['usuario']; ?> (Encargado)</h2>
-    <a href="../controllers/logout.php">Cerrar sesión</a>
-</body>
-</html>
+
+
+<?php
+require_once 'layouts/header.php';
+require_once 'layouts/sidebar_encargado.php';
+?>
+<main>
+    <h2>Panel de Encargado</h2>
+    <p>Bienvenido al panel de encargado, donde puedes gestionar casos y reportes.</p>
+</main>
+<?php require_once 'layouts/footer.php'; ?>
+
+
