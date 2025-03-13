@@ -7,7 +7,7 @@
 
 </head>
 <body>
-    <form action="../controllers/AuthController.php" method="POST" class="form_main">
+    <form action="../controllers/AuthController.php" method="POST" class="form_main" >
         <h2 class="heading">Iniciar Sesión</h2>
         
         <div class="inputContainer">
@@ -31,6 +31,105 @@
         <button type="submit" id="button">Iniciar Sesión</button>
     </form>
 </body>
+
+<style>
+    
+.form_main {
+width: 350px;
+height: 400px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+background-color: rgb(230, 230, 230) !important;;
+padding: 30px 30px 30px 30px;
+box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.062);
+position: relative;
+overflow: hidden;
+gap:30px;
+}
+
+.form_main::before {
+position: absolute;
+content: "";
+width: 390px;
+height: 390px;
+background-color: rgb(114, 172, 238);
+transform: rotate(45deg);
+left: -180px;
+bottom: 30px;
+z-index: 1;
+border-radius: 30px;
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.082);
+}
+
+.heading {
+font-size: 2em;
+color: #2e2e2e;
+font-weight: 700;
+margin: 5px 0 10px 0;
+z-index: 2;
+}
+
+.inputContainer {
+width: 100%;
+position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 2;
+}
+
+.inputIcon {
+position: absolute;
+left: 3px;
+}
+
+.inputField {
+width: 100%;
+height: 30px;
+background-color: transparent;
+border: none;
+border-bottom: 2px solid rgb(173, 173, 173);
+margin: 10px 0;
+color: black;
+font-size: .9em;
+font-weight: 500;
+box-sizing: border-box;
+padding-left: 30px;
+}
+
+.inputField:focus {
+outline: none;
+border-bottom: 2px solid rgb(89, 152, 223);
+}
+
+.inputField::placeholder {
+color: rgb(80, 80, 80);
+font-size: 1em;
+font-weight: 500;
+}
+
+#button {
+z-index: 2;
+position: relative;
+width: 100%;
+border: none;
+background-color: rgb(57, 140, 235);
+height: 40px;
+color: white;
+font-size: .9em;
+font-weight: 500;
+letter-spacing: 1px;
+margin: 10px;
+cursor: pointer;
+}
+
+#button:hover {
+background-color: rgb(95, 160, 233);
+}
+
+</style>
 
 
 </html>
