@@ -61,6 +61,6 @@ require_once 'layouts/sidebar_admin.php';
         <?php endforeach; ?>
     </table>
 
-    <a href="admin.php">Volver al Panel</a>
+   
 </main>
 <?php require_once 'layouts/footer.php'; ?>
