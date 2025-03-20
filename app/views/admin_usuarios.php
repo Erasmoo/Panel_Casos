@@ -22,9 +22,8 @@ require_once 'layouts/sidebar_admin.php';
     
     <h3>Lista de Usuarios</h3>
 
-
+    <a href="" class="btn btn-primary btn-rounded" ><i class="fa-solid fa-plus"></i>&nbsp;AGREGAR USUARIO</a>
     <div class="container mt-4">
-    <h2 class="text-center">Ejemplo de DataTables</h2>
 
     <table id="miTabla" class="table table-bordered table-striped">
         <thead class="table-dark">
@@ -41,8 +40,8 @@ require_once 'layouts/sidebar_admin.php';
             <tr>
                 <th><?= $dato['id'] ?></th>
                 <td><?= $dato['usuario'] ?></td>
-                <td><?= $dato['rol'] ?></td>
                 <td><?= $dato['usuario'] ?></td>
+                <td><?= $dato['rol'] ?></td>
                 
                 <td>
                     <a href="" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
