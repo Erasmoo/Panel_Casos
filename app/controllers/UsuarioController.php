@@ -1,5 +1,5 @@
 <?php
-require_once '../models/Usuario.php';
+require_once __DIR__ . '/../models/Usuario.php';
 
 class UsuarioController {
     private $usuarioModel;
@@ -12,8 +12,8 @@ class UsuarioController {
         return $this->usuarioModel->obtenerUsuarios();
     }
 
-    public function crearUsuario($usuario, $password, $rol) {
-        return $this->usuarioModel->crearUsuario($usuario, $password, $rol);
+    public function crearUsuario($usuario, $password, $apellido_paterno, $apellido_materno, $estado, $rol) {
+        return $this->usuarioModel->crearUsuario($usuario, $password, $apellido_paterno, $apellido_materno, $estado, $rol);
     }
 
     public function obtenerUsuario($id) {
@@ -27,19 +27,36 @@ class UsuarioController {
     public function eliminarUsuario($id) {
         return $this->usuarioModel->eliminarUsuario($id);
     }
-}
 
-$usuarioController = new UsuarioController();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['crear'])) {
-        $usuarioController->crearUsuario($_POST['usuario'], $_POST['password'], $_POST['rol']);
-    } elseif (isset($_POST['editar'])) {
-        $usuarioController->actualizarUsuario($_POST['id'], $_POST['usuario'], $_POST['password'], $_POST['rol']);
-    } elseif (isset($_POST['eliminar'])) {
-        $usuarioController->eliminarUsuario($_POST['id']);
+    public function procesarFormulario() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $usuario = trim($_POST['usuario'] ?? '');
+            $password = trim($_POST['password'] ?? '');
+            $apellido_paterno = trim($_POST['apellido_paterno'] ?? '');
+            $apellido_materno = trim($_POST['apellido_materno'] ?? '');
+            $estado = trim($_POST['estado'] ?? '');
+            $rol = trim($_POST['rol'] ?? '');
+
+            if (!empty($usuario) && !empty($password) && !empty($apellido_paterno) && !empty($apellido_materno) && !empty($estado) && !empty($rol)) {
+                if ($this->crearUsuario($usuario, $password, $apellido_paterno, $apellido_materno, $estado, $rol)) {
+                    header("Location: ../views/admin_usuarios.php");
+                    exit();
+                } else {
+                    header("Location: crear_usuario.php?error=" . urlencode("Error al registrar el usuario."));
+                    exit();
+                }
+            } else {
+                header("Location: crear_usuario.php?error=" . urlencode("Todos los campos son obligatorios."));
+                exit();
+            }
+        }
+        }
+
+        
     }
-    header("Location: ../views/admin_usuarios.php");
-    exit();
-}
+
+// Ejecutar el controlador si se accede directamente
+$usuarioController = new UsuarioController();
+$usuarioController->procesarFormulario();
 ?>

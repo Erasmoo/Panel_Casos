@@ -17,7 +17,7 @@ class CasosController {
     public function obtenerEncargados() {
         $sql = "SELECT usuarios.id, usuarios.usuario 
                 FROM usuarios 
-                JOIN roles ON usuarios.rol_id = rol.id
+                JOIN roles ON usuarios.rol_id = roles.id
                 WHERE roles.nombre = 'encargado'";
         $resultado = $this->db->query($sql);
         return $resultado ? $resultado->fetchAll(PDO::FETCH_ASSOC) : [];

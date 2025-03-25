@@ -22,7 +22,7 @@ require_once 'layouts/sidebar_admin.php';
     
     <h3>Lista de Usuarios</h3>
 
-    <a href="" class="btn btn-primary btn-rounded" ><i class="fa-solid fa-plus"></i>&nbsp;AGREGAR USUARIO</a>
+    <a href="layouts/crear_usuario.php" class="btn btn-primary btn-rounded" ><i class="fa-solid fa-plus"></i>&nbsp;AGREGAR USUARIO</a>
     <div class="container mt-4">
 
     <table id="miTabla" class="table table-bordered table-striped">
@@ -30,7 +30,9 @@ require_once 'layouts/sidebar_admin.php';
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Email</th>
+                <th>Apellido ma</th>
+                <th>Apellido PA</th>
+                <th>Estado</th>
                 <th>Rol</th>
                 <th>Acción</th>
             </tr>
@@ -40,7 +42,9 @@ require_once 'layouts/sidebar_admin.php';
             <tr>
                 <th><?= $dato['id'] ?></th>
                 <td><?= $dato['usuario'] ?></td>
-                <td><?= $dato['usuario'] ?></td>
+                <td><?= $dato['apellidopa'] ?></td>
+                <td><?= $dato['apellidoma'] ?></td>
+                <td><?= $dato['estado'] ?></td>
                 <td><?= $dato['rol'] ?></td>
                 
                 <td>

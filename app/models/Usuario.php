@@ -11,7 +11,9 @@ class Usuario {
 
     public function obtenerUsuarios() {
         $stmt = $this->conn->prepare("
-            SELECT usuarios.id, usuarios.usuario, usuarios.password, roles.nombre AS rol
+            SELECT usuarios.id, usuarios.usuario,
+            usuarios.apellidopa, usuarios.apellidoma, usuarios.estado,
+            usuarios.password, roles.nombre AS rol
             FROM usuarios
             JOIN roles ON usuarios.rol_id = roles.id
         ");
@@ -79,12 +81,17 @@ class Usuario {
     }
     
 
-    public function crearUsuario($usuario, $password, $rol) {
-        $hashedPassword = hash('sha256', $password); // 🔹 Encriptación SHA-256
-        $sql = "INSERT INTO usuarios (usuario, password, rol_id) VALUES (?, ?, ?)";
-        $stmt = $this->conn->prepare($sql); // 🔹 Usa $this->conn en lugar de $this->db
-        return $stmt->execute([$usuario, $hashedPassword, $rol]); // 🔹 Corrección de la ejecución
+    public function crearUsuario($usuario, $password, $apellido_paterno, $apellido_materno, $estado, $rol) {
+        $hashedPassword = hash('sha256', $password); 
+    
+        $sql = "INSERT INTO usuarios (usuario, password, apellidopa, apellidoma, estado, rol_id) 
+                VALUES (?, ?, ?, ?, ?, ?)";
+    
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([$usuario, $hashedPassword, $apellido_paterno, $apellido_materno, $estado, $rol]);
     }
+    
+
     
 
 }
