@@ -15,10 +15,14 @@ class CasosController {
     }
 
     public function obtenerEncargados() {
-        $sql = "SELECT id, usuario FROM usuarios WHERE rol = 'encargado'";
+        $sql = "SELECT usuarios.id, usuarios.usuario 
+                FROM usuarios 
+                JOIN roles ON usuarios.rol_id = rol.id
+                WHERE roles.nombre = 'encargado'";
         $resultado = $this->db->query($sql);
         return $resultado ? $resultado->fetchAll(PDO::FETCH_ASSOC) : [];
     }
+    
 
     public function asignarCaso($caso_id, $encargado_id) {
         $fecha_inicio = date('Y-m-d H:i:s');

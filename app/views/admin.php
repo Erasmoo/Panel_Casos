@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['usuario']) || $_SESSION['rol'] != 'admin') {
+if (!isset($_SESSION['usuario']) || $_SESSION['rol'] != 'administrador') {
     header("Location: login.php");
     exit();
 }
@@ -20,9 +20,11 @@ $casos_pendientes = $stmt->fetch()['total'];
 
 // Obtener la cantidad de usuarios (administradores y encargados)
 $stmt = $conn->query("SELECT 
-    SUM(CASE WHEN rol = 'admin' THEN 1 ELSE 0 END) AS total_admins, 
-    SUM(CASE WHEN rol = 'encargado' THEN 1 ELSE 0 END) AS total_encargados 
-    FROM usuarios");
+    SUM(CASE WHEN roles.nombre = 'administrador' THEN 1 ELSE 0 END) AS total_admins, 
+    SUM(CASE WHEN roles.nombre = 'encargado' THEN 1 ELSE 0 END) AS total_encargados 
+    FROM usuarios
+    JOIN roles ON usuarios.rol_id = roles.id");
+
 $usuarios = $stmt->fetch();
 $total_admins = $usuarios['total_admins'];
 $total_encargados = $usuarios['total_encargados'];
