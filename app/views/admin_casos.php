@@ -4,60 +4,58 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] != 'administrador') {
     header("Location: login.php");
     exit();
 }
-?>
 
-
-
-<?php
 require_once '../controllers/CasosController.php';
-$casosController = new CasosController(); // ✅ Ahora debería conectarse bien
+$casosController = new CasosController();
 $casos = $casosController->obtenerCasosPendientes();
 $encargados = $casosController->obtenerEncargados();
-
-
-// EN PROCESO
-
 ?>
 
+<?php include 'layouts/header.php'; ?>
+<?php include 'layouts/sidebar_admin.php'; ?>
 
-    <?php include 'layouts/header.php'; ?>
-    <?php include 'layouts/sidebar_admin.php'; ?>
+<main>
+    <h2>Casos Pendientes</h2>
+    <table id="miTabla" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre del Denunciante</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                <th>Descripción</th>
+                <th>Fecha de Inicio</th>
+                <th>Asignar Encargado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($casos as $caso): ?>
+            <tr>
+                <td><?= htmlspecialchars($caso['id_caso']) ?></td>
+                <td><?= htmlspecialchars($caso['NOMBRE_USUARIO'] . ' ' . $caso['APELLIDOPA_USUARIO'] . ' ' . $caso['APELLIDOMA_USUARIO']) ?></td>
+                <td><?= htmlspecialchars($caso['TELEFONO_USUARIO']) ?></td>
+                <td><?= htmlspecialchars($caso['DIRECCION_USUARIO']) ?></td>
+                <td><?= htmlspecialchars($caso['descripcion']) ?></td>
+                <td><?= htmlspecialchars($caso['fecha_inicio']) ?></td>
+                <td>
+                    <form action="../controllers/CasosController.php" method="POST">
+                        <input type="hidden" name="accion" value="asignar">
+                        <input type="hidden" name="caso_id" value="<?= $caso['id_caso'] ?>">
+                        <select name="encargado_id" required>
+                            <option value="">Seleccionar...</option>
+                            <?php foreach ($encargados as $encargado): ?>
+                                <option value="<?= htmlspecialchars($encargado['DNI_USUARIO']) ?>">
+                                    <?= htmlspecialchars($encargado['nombre']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <button type="submit">Asignar</button>
+                    </form>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</main>
 
-    <main>
-        <h2>Casos Pendientes</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Descripción</th>
-                    <th>Facultad</th>
-                    <th>Tipo de Incidente</th>
-                    <th>Fecha</th>
-                    <th>Asignar Encargado</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($casos as $caso): ?>
-                <tr>
-                    <td><?= $caso['id'] ?></td>
-                    <td><?= htmlspecialchars($caso['descripcion']) ?></td>
-                    <td><?= htmlspecialchars($caso['facultad']) ?></td>
-                    <td><?= htmlspecialchars($caso['tipo_incidente']) ?></td>
-                    <td><?= $caso['fecha'] ?></td>
-                    <td>
-                        <form action="../controllers/asignar_caso.php" method="POST">
-                            <input type="hidden" name="caso_id" value="<?= $caso['id'] ?>">
-                            <select name="encargado_id" required>
-                                <option value="">Seleccionar...</option>
-                                <?php foreach ($encargados as $encargado): ?>
-                                    <option value="<?= $encargado['id'] ?>"><?= htmlspecialchars($encargado['nombre']) ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <button type="submit">Asignar</button>
-                        </form>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </main>
+<?php include 'layouts/footer.php'; ?>

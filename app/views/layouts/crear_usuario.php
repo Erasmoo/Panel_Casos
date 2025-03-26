@@ -29,8 +29,8 @@ $error = $_GET['error'] ?? '';
             <option value="inactivo">Inactivo</option>
         </select>
         <select name="rol" required>
-            <option value="3">Administrador</option>
-            <option value="4">Encargado</option>
+            <option value="1">Administrador</option>
+            <option value="2">Encargado</option>
         </select>
         <button type="submit">Registrar</button>
     </form>

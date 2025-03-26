@@ -33,6 +33,8 @@ class UsuarioController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario = trim($_POST['usuario'] ?? '');
             $password = trim($_POST['password'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+
             $apellido_paterno = trim($_POST['apellido_paterno'] ?? '');
             $apellido_materno = trim($_POST['apellido_materno'] ?? '');
             $estado = trim($_POST['estado'] ?? '');

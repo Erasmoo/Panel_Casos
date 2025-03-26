@@ -15,7 +15,7 @@ require_once 'layouts/sidebar_admin.php';
 $conn = Database::connect();
 
 // Obtener la cantidad de casos pendientes
-$stmt = $conn->query("SELECT COUNT(*) AS total FROM casos WHERE estado = 'Pendiente'");
+$stmt = $conn->query("SELECT COUNT(*) AS total FROM casos_denuncias WHERE estado = 'pendiente'");
 $casos_pendientes = $stmt->fetch()['total'];
 
 // Obtener la cantidad de usuarios (administradores y encargados)

@@ -1,41 +1,61 @@
 <?php
-require_once '../config/database.php';
+require_once '../models/Casos.php';
 
 class CasosController {
-    private $db;
+    private $casosModel;
 
     public function __construct() {
-        $this->db = Database::connect(); // ✅ Llamado correcto a la conexión
+        $this->casosModel = new Casos();
     }
 
+    // Obtener los casos pendientes
     public function obtenerCasosPendientes() {
-        $sql = "SELECT * FROM casos WHERE estado = 'Pendiente'";
-        $resultado = $this->db->query($sql);
-        return $resultado ? $resultado->fetchAll(PDO::FETCH_ASSOC) : [];
+        return $this->casosModel->obtenerCasosPendientes();
     }
 
+    // Obtener encargados disponibles
     public function obtenerEncargados() {
-        $sql = "SELECT usuarios.id, usuarios.usuario 
-                FROM usuarios 
-                JOIN roles ON usuarios.rol_id = roles.id
-                WHERE roles.nombre = 'encargado'";
-        $resultado = $this->db->query($sql);
-        return $resultado ? $resultado->fetchAll(PDO::FETCH_ASSOC) : [];
+        return $this->casosModel->obtenerEncargados();
     }
-    
 
-    public function asignarCaso($caso_id, $encargado_id) {
-        $fecha_inicio = date('Y-m-d H:i:s');
-        $sql = "UPDATE casos SET encargado_id = ?, estado = 'Pendiente de Resolución', fecha_inicio = ? WHERE id = ?";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(1, $encargado_id, PDO::PARAM_INT);
-        $stmt->bindParam(2, $fecha_inicio, PDO::PARAM_STR);
-        $stmt->bindParam(3, $caso_id, PDO::PARAM_INT);
-        return $stmt->execute();
+    // Asignar un caso a un encargado
+    public function asignarCaso() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $caso_id = $_POST['caso_id'];
+            $encargado_id = $_POST['encargado_id'];
+
+            if ($this->casosModel->asignarCaso($caso_id, $encargado_id)) {
+                echo "<script>alert('Caso asignado correctamente'); window.location.href='../views/admin.php';</script>";
+            } else {
+                echo "<script>alert('Error al asignar el caso'); window.location.href='../views/admin.php';</script>";
+            }
+        }
+    }
+
+    // Cerrar un caso
+    public function cerrarCaso() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $caso_id = $_POST['caso_id'];
+
+            if ($this->casosModel->cerrarCaso($caso_id)) {
+                echo "<script>alert('Caso cerrado correctamente'); window.location.href='../views/admin.php';</script>";
+            } else {
+                echo "<script>alert('Error al cerrar el caso'); window.location.href='../views/admin.php';</script>";
+            }
+        }
     }
 }
 
+// Manejo de solicitudes POST
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $controller = new CasosController();
 
-// EN PROCESO
-
+    if (isset($_POST['accion'])) {
+        if ($_POST['accion'] == 'asignar') {
+            $controller->asignarCaso();
+        } elseif ($_POST['accion'] == 'cerrar') {
+            $controller->cerrarCaso();
+        }
+    }
+}
 ?>

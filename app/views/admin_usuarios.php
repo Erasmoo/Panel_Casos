@@ -30,8 +30,8 @@ require_once 'layouts/sidebar_admin.php';
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Apellido ma</th>
-                <th>Apellido PA</th>
+                <th>Apellido materno</th>
+                <th>Apellido paterno</th>
                 <th>Estado</th>
                 <th>Rol</th>
                 <th>Acción</th>
