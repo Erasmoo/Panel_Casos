@@ -11,21 +11,25 @@ class Casos {
 
     // Obtener todos los casos pendientes con la información del denunciante
     public function obtenerCasosPendientes() {
-        $sql = "SELECT c.id_caso, p.NOMBRE_USUARIO, p.APELLIDOPA_USUARIO, p.APELLIDOMA_USUARIO, 
+        $sql = "SELECT c.id_caso, p.DNI_USUARIO, p.NOMBRE_USUARIO, p.APELLIDOPA_USUARIO, p.APELLIDOMA_USUARIO, 
                        p.TELEFONO_USUARIO, p.DIRECCION_USUARIO, c.descripcion, 
                        c.fecha_inicio, c.fecha_fin, c.estado, c.encargado_id 
                 FROM casos_denuncias c
                 JOIN personas_completado p ON c.dni_usuario = p.DNI_USUARIO
                 WHERE c.estado = 'pendiente'";
+    
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
 
     // Obtener lista de encargados disponibles
     public function obtenerEncargados() {
-        $sql = "SELECT DNI_USUARIO, CONCAT(NOMBRE_USUARIO, ' ', APELLIDOPA_USUARIO) AS nombre 
-                FROM personas_completado"; // Asumiendo que los encargados están en esta tabla
+        $sql = "SELECT usuario, CONCAT(usuario, ' ', apellidopa, ' ', apellidoma) AS nombre, roles.nombre AS rol 
+                FROM usuarios u
+                JOIN roles ON u.rol_id = roles.id
+                WHERE roles.nombre = 'encargado'";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -37,6 +41,14 @@ class Casos {
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$encargado_id, $caso_id]);
     }
+
+
+    public function eliminarCaso($id) {
+        $sql = "DELETE FROM casos_denuncias WHERE id_caso = ?";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$id]);
+    }
+    
 
     // Cerrar un caso estableciendo la fecha de finalización
     public function cerrarCaso($caso_id) {

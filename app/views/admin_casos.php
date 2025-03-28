@@ -44,12 +44,18 @@ $encargados = $casosController->obtenerEncargados();
                         <select name="encargado_id" required>
                             <option value="">Seleccionar...</option>
                             <?php foreach ($encargados as $encargado): ?>
-                                <option value="<?= htmlspecialchars($encargado['DNI_USUARIO']) ?>">
+                                <option value="<?= htmlspecialchars($encargado['usuario']) ?>">
                                     <?= htmlspecialchars($encargado['nombre']) ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
                         <button type="submit">Asignar</button>
+                    </form>
+
+                    <form action="../controllers/CasosController.php" method="POST" style="display:inline;">
+                        <input type="hidden" name="accion" value="eliminar">
+                        <input type="hidden" name="caso_id" value="<?= htmlspecialchars($caso['id_caso']) ?>">
+                        <button type="submit" onclick="return confirm('¿Estás seguro de eliminar este caso?');">Eliminar</button>
                     </form>
                 </td>
             </tr>
