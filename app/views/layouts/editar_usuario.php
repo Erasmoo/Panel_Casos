@@ -1,61 +1,55 @@
 <?php
-require_once '../models/Usuario.php';
+require_once '../../controllers/editarController.php';
 
-$usuarioModel = new Usuario();
-$id = $_GET['id'] ?? null;
+$usuarioController = new UsuarioController();
 
-if (!$id) {
-    header("Location: admin_usuarios.php?error=" . urlencode("ID de usuario no válido."));
+if (!isset($_GET['id']) || empty($_GET['id'])) {
+    header("Location: ../admin_usuarios.php?error=missing_id");
     exit();
 }
 
-$usuario = $usuarioModel->obtenerUsuarioPorId($id);
+$usuario = $usuarioController->editar($_GET['id']);
 
 if (!$usuario) {
-    header("Location: admin_usuarios.php?error=" . urlencode("Usuario no encontrado."));
+    echo "Usuario no encontrado.";
     exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Usuario</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
     <h2>Editar Usuario</h2>
+    <form action="../../controllers/editarController.php" method="POST">
+    <input type="hidden" name="id" value="<?= htmlspecialchars($usuario['id']) ?>">
 
-    <form action="../controllers/UsuarioController.php" method="POST">
-        <input type="hidden" name="id" value="<?= htmlspecialchars($usuario['id']) ?>">
+    <label>Usuario:</label>
+    <input type="text" name="usuario" value="<?= htmlspecialchars($usuario['usuario']) ?>" required>
 
-        <label>Usuario:</label>
-        <input type="text" name="usuario" value="<?= htmlspecialchars($usuario['usuario']) ?>" required>
+    <label>Apellido Paterno:</label>
+    <input type="text" name="apellidopa" value="<?= htmlspecialchars($usuario['apellidopa']) ?>" required>
 
-        <label>Contraseña (dejar en blanco para no cambiar):</label>
-        <input type="password" name="password">
+    <label>Apellido Materno:</label>
+    <input type="text" name="apellidoma" value="<?= htmlspecialchars($usuario['apellidoma']) ?>" required>
 
-        <label>Apellido Paterno:</label>
-        <input type="text" name="apellido_paterno" value="<?= htmlspecialchars($usuario['apellidopa']) ?>" required>
+    <label>Estado:</label>
+    <select name="estado">
+        <option value="activo" <?= $usuario['estado'] === 'activo' ? 'selected' : '' ?>>Activo</option>
+        <option value="inactivo" <?= $usuario['estado'] === 'inactivo' ? 'selected' : '' ?>>Inactivo</option>
+    </select>
 
-        <label>Apellido Materno:</label>
-        <input type="text" name="apellido_materno" value="<?= htmlspecialchars($usuario['apellidoma']) ?>" required>
+    <label>Rol:</label>
+    <input type="number" name="rol" value="<?= htmlspecialchars($usuario['rol_id']) ?>" required>
 
-        <label>Estado:</label>
-        <select name="estado">
-            <option value="activo" <?= $usuario['estado'] === 'activo' ? 'selected' : '' ?>>Activo</option>
-            <option value="inactivo" <?= $usuario['estado'] === 'inactivo' ? 'selected' : '' ?>>Inactivo</option>
-        </select>
+    <label>Nueva Contraseña (Opcional):</label>
+    <input type="password" name="password">
 
-        <label>Rol:</label>
-        <select name="rol">
-            <option value="1" <?= $usuario['rol_id'] == 1 ? 'selected' : '' ?>>Administrador</option>
-            <option value="2" <?= $usuario['rol_id'] == 2 ? 'selected' : '' ?>>Usuario</option>
-        </select>
+    <button type="submit">Actualizar</button>
+</form>
 
-        <button type="submit" name="actualizar">Actualizar Usuario</button>
-    </form>
 </body>
 </html>

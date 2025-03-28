@@ -17,10 +17,10 @@ $encargados = $casosController->obtenerEncargados();
 <main>
     <h2>Casos Pendientes</h2>
     <table id="miTabla" class="table table-bordered table-striped">
-        <thead>
+        <thead class="table-dark">
             <tr>
                 <th>ID</th>
-                <th>Nombre del Denunciante</th>
+                <th>Nombre</th>
                 <th>Teléfono</th>
                 <th>Dirección</th>
                 <th>Descripción</th>

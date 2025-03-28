@@ -4,7 +4,6 @@ require_once '../../controllers/UsuarioController.php';
 
 $error = $_GET['error'] ?? '';
 
-
 ?>
 
 <!DOCTYPE html>

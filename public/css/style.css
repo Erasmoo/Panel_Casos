@@ -19,7 +19,7 @@ header {
     left: 0;
     width: 100%;
     height: 60px;
-    background: #16233d;
+    background: #fafafa;
     color: #fff;
     text-align: center;
     line-height: 60px;
@@ -27,6 +27,7 @@ header {
     display: flex;
     justify-content: end;
     border-bottom: 1px solid #bdbdbd;
+    opacity: 0;
 }
 
 header h2{
@@ -40,11 +41,11 @@ h2 {
 
 /* Sidebar */
 nav {
-    width: 300px;
+    width: 250px;
     height: 100%;
     background: #101828;
     color: white;
-    padding-top: 80px;
+    padding-top: 60px;
     position: fixed;
     top: 0;
     left: 0;
@@ -56,7 +57,7 @@ nav ul {
 }
 
 nav ul li {
-    margin-bottom: 20px;
+    margin-bottom: 13px;
 }
 
 nav ul li a {
@@ -66,7 +67,7 @@ nav ul li a {
     align-items: center;
     gap: 10px;
     transition: 0.3s;
-    font-size: 16.5px;
+    font-size: 13.5px;
     font-weight: 700;
     padding: 21px;
 
@@ -78,18 +79,27 @@ nav ul li:hover {
 
 /* Contenido Principal */
 main {
-    margin-left: 300px;
-    padding: 80px 20px 20px;
+    margin-left: 250px;
+    padding: 40px 30px 30px;
     flex: 1;
-    
+    background-color: #efefef;
     width: 83.5%;
-    height: 100%;
+    min-height: 120vh;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+.dataTables_wrapper {
+    
+    padding: 30px;
+    background-color: #fffffff3;
+    border-radius: 10px;
+}
 
-
+table.table-bordered.dataTable thead tr:first-child th, table.table-bordered.dataTable thead tr:first-child td {
+    
+    text-align: center;
+}
 
 /* Footer */
 footer {

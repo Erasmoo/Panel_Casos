@@ -25,35 +25,35 @@ class Usuario {
     
     public function obtenerUsuarioPorId($id) {
         $stmt = $this->conn->prepare("SELECT * FROM usuarios WHERE id = :id");
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
+        $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function actualizarUsuario($id, $usuario, $password, $rol) {
+    public function actualizarUsuario($id, $usuario, $apellidopa, $apellidoma, $estado, $rol, $password = null) {
         if ($password) {
-            $hashedPassword = hash('sha256', $password); // 🔹 SHA-256 en vez de password_hash()
-            $stmt = $this->conn->prepare("UPDATE usuarios SET usuario = :usuario, password = :password, rol = :rol WHERE id = :id");
-            $stmt->bindParam(':password', $hashedPassword);
+            $password = password_hash($password, PASSWORD_DEFAULT);
+            $sql = "UPDATE usuarios SET usuario = :usuario, apellidopa = :apellidopa, apellidoma = :apellidoma, 
+                    estado = :estado, rol_id = :rol, password = :password WHERE id = :id";
+            $params = compact('id', 'usuario', 'apellidopa', 'apellidoma', 'estado', 'rol', 'password');
         } else {
-            $stmt = $this->conn->prepare("UPDATE usuarios SET usuario = :usuario, rol = :rol WHERE id = :id");
+            $sql = "UPDATE usuarios SET usuario = :usuario, apellidopa = :apellidopa, apellidoma = :apellidoma, 
+                    estado = :estado, rol_id = :rol WHERE id = :id";
+            $params = compact('id', 'usuario', 'apellidopa', 'apellidoma', 'estado', 'rol');
         }
-    
-        $stmt->bindParam(':usuario', $usuario);
-        $stmt->bindParam(':rol', $rol);
-        $stmt->bindParam(':id', $id);
-        
-        return $stmt->execute();
+
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute($params);
     }
-    
 
     public function eliminarUsuario($id) {
         $stmt = $this->conn->prepare("DELETE FROM usuarios WHERE id = :id");
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
-
     
+
+
+
     
 
     public function verificarUsuario($usuario, $password) {
