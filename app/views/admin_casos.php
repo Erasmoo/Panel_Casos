@@ -47,6 +47,7 @@ $encargados = $casosController->obtenerEncargados();
                                 <option value="<?= htmlspecialchars($encargado['usuario']) ?>">
                                     <?= htmlspecialchars($encargado['nombre']) ?>
                                 </option>
+                                
                             <?php endforeach; ?>
                         </select>
                         <button type="submit">Asignar</button>
@@ -55,7 +56,7 @@ $encargados = $casosController->obtenerEncargados();
                     <form action="../controllers/CasosController.php" method="POST" style="display:inline;">
                         <input type="hidden" name="accion" value="eliminar">
                         <input type="hidden" name="caso_id" value="<?= htmlspecialchars($caso['id_caso']) ?>">
-                        <button type="submit" onclick="return confirm('¿Estás seguro de eliminar este caso?');">Eliminar</button>
+                        <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('¿Estás seguro de eliminar este caso?');">Eliminar</button>
                     </form>
                 </td>
             </tr>

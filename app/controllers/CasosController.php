@@ -18,19 +18,28 @@ class CasosController {
         return $this->casosModel->obtenerEncargados();
     }
 
-    // Asignar un caso a un encargado
+    public function obtenerTodosLosCasosAsignados() {
+        return $this->casosModel->obtenerTodosLosCasosAsignados();
+    }
+    
+    
+    
     public function asignarCaso() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $caso_id = $_POST['caso_id'];
             $encargado_id = $_POST['encargado_id'];
-
+    
             if ($this->casosModel->asignarCaso($caso_id, $encargado_id)) {
                 echo "<script>alert('Caso asignado correctamente'); window.location.href='../views/admin_casos.php';</script>";
             } else {
-                echo "<script>alert('Error al asignar el caso'); window.location.href='../views/casos.php';</script>";
+                echo "<script>alert('Error al asignar el caso'); window.location.href='../views/admin_casos.php';</script>";
             }
         }
     }
+    
+    
+    
+    
 
     public function eliminarCaso() {
         if (isset($_POST['caso_id'])) {

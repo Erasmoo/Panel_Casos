@@ -37,11 +37,31 @@ class Casos {
 
     // Asignar un caso a un encargado
     public function asignarCaso($caso_id, $encargado_id) {
-        $sql = "UPDATE casos_denuncias SET encargado_id = ?, estado = 'en proceso' WHERE id_caso = ?";
+        $sql = "UPDATE casos_denuncias SET encargado_id = ?, estado = 'pendiente' WHERE id_caso = ?";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$encargado_id, $caso_id]);
     }
 
+    public function obtenerTodosLosCasosAsignados() {
+        $sql = "SELECT c.id_caso, c.descripcion, c.estado, c.encargado_id, 
+                       u.usuario AS encargado_nombre, u.apellidopa AS apellido_pa, 
+                   u.apellidoma AS apellido_ma
+                FROM casos_denuncias c
+                LEFT JOIN usuarios u ON c.encargado_id = u.id
+                WHERE c.estado = 'pendiente'";
+    
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 
     public function eliminarCaso($id) {
         $sql = "DELETE FROM casos_denuncias WHERE id_caso = ?";

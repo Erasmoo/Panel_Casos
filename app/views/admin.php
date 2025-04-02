@@ -30,8 +30,10 @@ $total_admins = $usuarios['total_admins'];
 $total_encargados = $usuarios['total_encargados'];
 
 // Obtener la cantidad de reportes
+// Obtener la cantidad total de reportes registrados
 $stmt = $conn->query("SELECT COUNT(*) AS total FROM reportes");
 $reportes_totales = $stmt->fetch()['total'];
+
 ?>
 
 <main>
