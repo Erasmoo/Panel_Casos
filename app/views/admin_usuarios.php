@@ -48,7 +48,16 @@ require_once 'layouts/sidebar_admin.php';
             <tr>
                 <th><?= $dato['id'] ?></th>
                 <td><?= $dato['usuario'].' '.$dato['apellidopa'].' '.$dato['apellidoma'] ?></td>
-                <td><?= $dato['estado'] ?></td>
+                <td><?php if ($dato['estado'] == 'activo'): ?>
+                    <span class="badge bg-success" style="font-size: 0.8rem; padding: 6px 12px;">
+                        <?= $dato['estado'] ?>
+                    </span>
+                <?php else: ?>
+                    <span class="badge bg-danger" style="font-size: 0.8rem; padding: 6px 12px;">
+                        <?= $dato['estado'] ?>
+                    </span>
+                <?php endif; ?></td>
+
                 <td><?= $dato['rol'] ?></td>
                 
                 <td>

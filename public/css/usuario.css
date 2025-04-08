@@ -63,6 +63,12 @@ table th {
     color: white;
 }
 
+
+.fs-custom {
+    font-size: 1.7rem;
+    padding: 18px 15px;
+}
+
 table tr:nth-child(even) {
     background: #f2f2f2;
 }
