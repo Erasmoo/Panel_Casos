@@ -24,8 +24,8 @@ $casosAsignados = $casosController->obtenerTodosLosCasosAsignados();
             <td><?= htmlspecialchars($caso['id_caso']) ?></td>
             <td><?= htmlspecialchars($caso['descripcion']) ?></td>
             <td><?= htmlspecialchars($caso['estado']) ?></td>
-            <td><?= htmlspecialchars($caso['encargado_id'] . ' ' . $caso['apellido_pa'] . ' ' . $caso['apellido_ma']) ?></td>
-        </tr>
+            <td><?= htmlspecialchars($caso['encargado_nombre'] . ' ' . $caso['apellido_pa'] . ' ' . $caso['apellido_ma']) ?></td>
+            </tr>
     <?php endforeach; ?>
 </table>
 

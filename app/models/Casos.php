@@ -47,7 +47,7 @@ class Casos {
                        u.usuario AS encargado_nombre, u.apellidopa AS apellido_pa, 
                    u.apellidoma AS apellido_ma
                 FROM casos_denuncias c
-                LEFT JOIN usuarios u ON c.encargado_id = u.id
+                LEFT JOIN usuarios u ON c.encargado_id = u.usuario
                 WHERE c.estado = 'pendiente'";
     
         $stmt = $this->db->prepare($sql);
@@ -56,11 +56,7 @@ class Casos {
     }
     
     
-    
-    
-    
-    
-    
+
     
 
     public function eliminarCaso($id) {
