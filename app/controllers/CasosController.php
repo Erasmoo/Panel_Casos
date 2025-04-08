@@ -58,18 +58,7 @@ class CasosController {
     }
     
 
-    // Cerrar un caso
-    public function cerrarCaso() {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $caso_id = $_POST['caso_id'];
-
-            if ($this->casosModel->cerrarCaso($caso_id)) {
-                echo "<script>alert('Caso cerrado correctamente'); window.location.href='../views/admin.php';</script>";
-            } else {
-                echo "<script>alert('Error al cerrar el caso'); window.location.href='../views/admin.php';</script>";
-            }
-        }
-    }
+    
 }
 
 // Manejo de solicitudes POST

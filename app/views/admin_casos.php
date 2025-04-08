@@ -19,7 +19,7 @@ $encargados = $casosController->obtenerEncargados();
     <table id="miTabla" class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
-                <th>ID</th>
+                
                 <th>Nombre</th>
                 <th>Teléfono</th>
                 <th>Dirección</th>
@@ -31,7 +31,7 @@ $encargados = $casosController->obtenerEncargados();
         <tbody>
             <?php foreach ($casos as $caso): ?>
             <tr>
-                <td><?= htmlspecialchars($caso['id_caso']) ?></td>
+                
                 <td><?= htmlspecialchars($caso['NOMBRE_USUARIO'] . ' ' . $caso['APELLIDOPA_USUARIO'] . ' ' . $caso['APELLIDOMA_USUARIO']) ?></td>
                 <td><?= htmlspecialchars($caso['TELEFONO_USUARIO']) ?></td>
                 <td><?= htmlspecialchars($caso['DIRECCION_USUARIO']) ?></td>
