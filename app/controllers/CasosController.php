@@ -21,6 +21,11 @@ class CasosController {
     public function obtenerTodosLosCasosAsignados() {
         return $this->casosModel->obtenerTodosLosCasosAsignados();
     }
+
+    public function obtenerCasosResueltosPorEncargado($id_encargado) {
+        return $this->casosModel->obtenerCasosResueltosPorEncargado($id_encargado);
+    }
+    
     
     
     
@@ -58,6 +63,40 @@ class CasosController {
     }
     
 
+    public function cerrarCaso() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $caso_id = $_POST['caso_id'];
+    
+            if ($this->casosModel->cerrarCaso($caso_id)) {
+                echo "<script>alert('Caso marcado como resuelto'); window.location.href='../views/admin_reportes.php';</script>";
+            } else {
+                echo "<script>alert('Error al actualizar el estado del caso'); window.location.href='../views/admin_reportes.php';</script>";
+            }
+        }
+    }
+    
+
+    // Función para manejar la lógica de marcar el caso como resuelto
+public function manejarFormularioResolver() {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Verificar si se trata de una acción para resolver un caso
+        if (isset($_POST['accion']) && $_POST['accion'] == 'resolver') {
+            $caso_id = $_POST['caso_id'];
+
+            // Llamar a la función para resolver el caso
+            if ($this->resolverCaso($caso_id)) {
+                echo "<script>alert('Caso marcado como resuelto'); window.location.href='../views/encargado_casos.php';</script>";
+            } else {
+                echo "<script>alert('Error al marcar el caso como resuelto'); window.location.href='../views/encargado_casos.php';</script>";
+            }
+        }
+    }
+}
+
+    
+
+
+
     
 }
 
@@ -70,9 +109,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $controller->asignarCaso();
         } elseif ($_POST['accion'] == 'cerrar') {
             $controller->cerrarCaso();
-        } elseif ($_POST['accion'] == 'eliminar') { // Nueva acción para eliminar
+        }elseif ($_POST['accion'] == 'eliminar') { // Nueva acción para eliminar
             $controller->eliminarCaso();
         }
+        
     }
 }
 ?>

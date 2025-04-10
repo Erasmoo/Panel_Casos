@@ -54,7 +54,20 @@ class Casos {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function obtenerCasosResueltosPorEncargado($id_encargado) {
+        $sql = "SELECT * FROM casos_denuncias WHERE estado = 'resuelto' AND encargado_id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id_encargado]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     
+    
+    public function resolverCaso($caso_id) {
+        $sql = "UPDATE casos SET estado = 'resuelto' WHERE id_caso = ?";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([$caso_id]);
+    }
     
 
     
@@ -66,11 +79,11 @@ class Casos {
     }
     
 
-    // Cerrar un caso estableciendo la fecha de finalización
     public function cerrarCaso($caso_id) {
-        $sql = "UPDATE casos_denuncias SET estado = 'cerrado', fecha_fin = NOW() WHERE id_caso = ?";
+        $sql = "UPDATE casos_denuncias SET estado = 'resuelto' WHERE id_caso = ?";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$caso_id]);
     }
+    
 }
 ?>

@@ -8,6 +8,8 @@ require_once 'layouts/sidebar_admin.php';
 
 $casosController = new CasosController();
 $casosAsignados = $casosController->obtenerTodosLosCasosAsignados();
+
+$casosController->manejarFormularioResolver();
 ?>
 
 <main>
@@ -25,9 +27,10 @@ $casosAsignados = $casosController->obtenerTodosLosCasosAsignados();
             <td><?= htmlspecialchars($caso['descripcion']) ?></td>
             <td><?= htmlspecialchars($caso['estado']) ?></td>
             <td><?= htmlspecialchars($caso['encargado_nombre'] . ' ' . $caso['apellido_pa'] . ' ' . $caso['apellido_ma']) ?></td>
-            </tr>
+        </tr>
     <?php endforeach; ?>
 </table>
+
 
 </main>
 <?php require_once 'layouts/footer.php'; ?>

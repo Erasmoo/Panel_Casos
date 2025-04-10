@@ -30,8 +30,17 @@ $casos = $stmt->fetchAll();
         <td><?= htmlspecialchars($caso['id_caso']) ?></td>
         <td><?= htmlspecialchars($caso['dni_usuario']) ?></td>
         <td><?= htmlspecialchars($caso['descripcion']) ?></td>
-        <td><?= htmlspecialchars($caso['estado']) ?></td>
-    </tr>
+        <td><?php if ($caso['estado'] == 'pendiente'): ?>
+                    <form action="../controllers/CasosController.php" method="POST" style="display:inline;">
+                        <input type="hidden" name="accion" value="cerrar">
+                        <input type="hidden" name="caso_id" value="<?= htmlspecialchars($caso['id_caso']) ?>">
+                        <button class="btn btn-success btn-sm" type="submit" onclick="return confirm('¿Estás seguro de que resolviste este caso?');">Marcar como Resuelto</button>
+                    </form>
+                <?php else: ?>
+                    <span class="badge bg-success">Resuelto</span>
+                <?php endif; ?>
+            </td>    
+        </tr>
     <?php endforeach; ?>
 </table>
 </main>
