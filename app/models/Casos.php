@@ -65,7 +65,7 @@ class Casos {
     
     public function resolverCaso($caso_id) {
         $sql = "UPDATE casos SET estado = 'resuelto' WHERE id_caso = ?";
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->db->prepare($sql);
         return $stmt->execute([$caso_id]);
     }
     
@@ -80,10 +80,12 @@ class Casos {
     
 
     public function cerrarCaso($caso_id) {
+        
         $sql = "UPDATE casos_denuncias SET estado = 'resuelto' WHERE id_caso = ?";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$caso_id]);
     }
+    
     
 }
 ?>

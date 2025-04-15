@@ -68,15 +68,15 @@ class CasosController {
             $caso_id = $_POST['caso_id'];
     
             if ($this->casosModel->cerrarCaso($caso_id)) {
-                echo "<script>alert('Caso marcado como resuelto'); window.location.href='../views/admin_reportes.php';</script>";
+                echo "<script>alert('Caso marcado como resuelto'); window.location.href='../views/encargado_casos.php';</script>";
             } else {
-                echo "<script>alert('Error al actualizar el estado del caso'); window.location.href='../views/admin_reportes.php';</script>";
+                echo "<script>alert('Error al actualizar el estado del caso'); window.location.href='../views/encargado_casos.php';</script>";
             }
         }
     }
     
+    
 
-    // Función para manejar la lógica de marcar el caso como resuelto
 public function manejarFormularioResolver() {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verificar si se trata de una acción para resolver un caso
@@ -100,7 +100,6 @@ public function manejarFormularioResolver() {
     
 }
 
-// Manejo de solicitudes POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $controller = new CasosController();
 
@@ -109,10 +108,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $controller->asignarCaso();
         } elseif ($_POST['accion'] == 'cerrar') {
             $controller->cerrarCaso();
-        }elseif ($_POST['accion'] == 'eliminar') { // Nueva acción para eliminar
+        } elseif ($_POST['accion'] == 'eliminar') {
             $controller->eliminarCaso();
         }
-        
     }
 }
+
 ?>
