@@ -45,9 +45,10 @@ class Casos {
     public function obtenerTodosLosCasosAsignados() {
         
     
-        $sql = "SELECT c.*, u.usuario AS encargado_nombre, u.apellidopa, u.apellidoma
-                FROM casos_denuncias c
+        $sql = "SELECT c.*, u.usuario AS encargado_nombre, u.apellidopa, u.apellidoma, p.*
+                FROM casos_denuncias c 
                 LEFT JOIN usuarios u ON c.encargado_id = u.usuario
+                LEFT JOIN personas_completado p ON c.dni_usuario = p.DNI_USUARIO
                 ORDER BY c.id_caso DESC";
         
         $stmt = $this->db->prepare($sql);

@@ -31,7 +31,7 @@ $total_encargados = $usuarios['total_encargados'];
 
 // Obtener la cantidad de reportes
 // Obtener la cantidad total de reportes registrados
-$stmt = $conn->query("SELECT COUNT(*) AS total FROM reportes");
+$stmt = $conn->query("SELECT COUNT(*) AS total FROM casos_denuncias");
 $reportes_totales = $stmt->fetch()['total'];
 
 ?>

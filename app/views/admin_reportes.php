@@ -18,14 +18,16 @@ $casosController->manejarFormularioResolver();
     <h2>Lista de Casos Asignados</h2>
     <table border="1">
     <tr>
-        <th>ID Caso</th>
+        <th>DNI</th>
+        <th>Denunciante</th>
         <th>Descripción</th>
         <th>Estado</th>
         <th>Encargado</th>
     </tr>
     <?php foreach ($casosAsignados as $caso): ?>
         <tr>
-            <td><?= htmlspecialchars($caso['id_caso']) ?></td>
+            <td><?= htmlspecialchars($caso['DNI_USUARIO']) ?></td>
+            <td><?= htmlspecialchars($caso['NOMBRE_USUARIO'] . ' ' . $caso['APELLIDOPA_USUARIO'] . ' ' .$caso['APELLIDOMA_USUARIO'] ) ?></td>
             <td><?= htmlspecialchars($caso['descripcion']) ?></td>
             <td>
                 <?php if ($caso['estado'] === 'resuelto'): ?>
