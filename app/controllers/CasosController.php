@@ -67,10 +67,22 @@ class CasosController {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $caso_id = $_POST['caso_id'];
     
-            if ($this->casosModel->cerrarCaso($caso_id)) {
-                echo "<script>alert('Caso marcado como resuelto'); window.location.href='../views/encargado_casos.php';</script>";
+            require_once '../config/database.php';
+            $conn = Database::connect();
+    
+            // Cambiar el estado del caso a 'resuelto'
+            $sql = "UPDATE casos_denuncias SET estado = 'resuelto', fecha_fin = NOW() WHERE id_caso = ?";
+            $stmt = $conn->prepare($sql);
+            if ($stmt->execute([$caso_id])) {
+                echo "<script>
+                    alert('Caso marcado como resuelto');
+                    window.location.href='../views/encargado_casos.php';
+                </script>";
             } else {
-                echo "<script>alert('Error al actualizar el estado del caso'); window.location.href='../views/encargado_casos.php';</script>";
+                echo "<script>
+                    alert('Error al actualizar el estado del caso');
+                    window.location.href='../views/encargado_casos.php';
+                </script>";
             }
         }
     }

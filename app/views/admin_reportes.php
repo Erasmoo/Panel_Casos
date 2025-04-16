@@ -10,6 +10,8 @@ $casosController = new CasosController();
 $casosAsignados = $casosController->obtenerTodosLosCasosAsignados();
 
 $casosController->manejarFormularioResolver();
+
+
 ?>
 
 <main>
@@ -25,8 +27,15 @@ $casosController->manejarFormularioResolver();
         <tr>
             <td><?= htmlspecialchars($caso['id_caso']) ?></td>
             <td><?= htmlspecialchars($caso['descripcion']) ?></td>
-            <td><?= htmlspecialchars($caso['estado']) ?></td>
-            <td><?= htmlspecialchars($caso['encargado_nombre'] . ' ' . $caso['apellido_pa'] . ' ' . $caso['apellido_ma']) ?></td>
+            <td>
+                <?php if ($caso['estado'] === 'resuelto'): ?>
+                    <span class="badge bg-success">Resuelto</span>
+                <?php else: ?>
+                    <span class="badge bg-warning text-dark">Pendiente</span>
+                <?php endif; ?>
+            </td>
+
+            <td><?= htmlspecialchars($caso['encargado_nombre'] . ' ' . $caso['apellidopa'] . ' ' . $caso['apellidoma']) ?></td>
         </tr>
     <?php endforeach; ?>
 </table>

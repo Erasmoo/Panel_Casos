@@ -43,17 +43,18 @@ class Casos {
     }
 
     public function obtenerTodosLosCasosAsignados() {
-        $sql = "SELECT c.id_caso, c.descripcion, c.estado, c.encargado_id, 
-                       u.usuario AS encargado_nombre, u.apellidopa AS apellido_pa, 
-                   u.apellidoma AS apellido_ma
+        
+    
+        $sql = "SELECT c.*, u.usuario AS encargado_nombre, u.apellidopa, u.apellidoma
                 FROM casos_denuncias c
                 LEFT JOIN usuarios u ON c.encargado_id = u.usuario
-                WHERE c.estado = 'pendiente'";
-    
+                ORDER BY c.id_caso DESC";
+        
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
+    
 
     public function obtenerCasosResueltosPorEncargado($id_encargado) {
         $sql = "SELECT * FROM casos_denuncias WHERE estado = 'resuelto' AND encargado_id = ?";
@@ -61,6 +62,7 @@ class Casos {
         $stmt->execute([$id_encargado]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
     
     
     public function resolverCaso($caso_id) {
