@@ -1,0 +1,72 @@
+
+    
+
+    main h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 600;
+        color: #2d3748;
+    }
+
+    #miTabla {
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    #miTabla th,
+    #miTabla td {
+        vertical-align: middle;
+        font-size: 0.95rem;
+    }
+
+    #miTabla th {
+        background-color: #2d3748 !important;
+        color: white;
+    }
+
+    #miTabla tr:hover {
+        background-color: #f1f5f9;
+    }
+
+    select {
+        border-radius: 8px;
+        padding: 5px 8px;
+        margin-right: 5px;
+        border: 1px solid #cbd5e0;
+    }
+
+    button[type="submit"] {
+        background-color: #3b3b3b;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        transition: background-color 0.2s;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #2b6cb0;
+    }
+
+    .btn-danger {
+        margin-left: 5px;
+    }
+
+    form {
+        display: inline-block;
+    }
+
+    .asignación{
+        display: flex;
+        gap: 10px;
+    }
+
+    .eliminacion{
+        display: flex !important;
+        justify-content: end;
+        margin-top: 5px;
+    }
+

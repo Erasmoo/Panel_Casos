@@ -49,16 +49,127 @@ $casos = $stmt->fetchAll();
         </tbody>
     </table>
 </main>
+
 <script>
-    // Seleccionar todos los checkboxes
     document.querySelectorAll('.check-resolver').forEach(function(checkbox) {
         checkbox.addEventListener('change', function(e) {
-            if (confirm('¿Estás seguro de que este caso ha sido resuelto?')) {
-                this.closest('form').submit();
-            } else {
-                this.checked = false; // Desmarca si el usuario cancela
-            }
+            e.preventDefault(); // Evita el submit automático
+
+            const form = this.closest('form');
+            const casoId = form.querySelector('input[name="caso_id"]').value;
+
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: `¿Deseas marcar el caso #${casoId} como resuelto?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, marcar como resuelto',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: '¡Caso resuelto!',
+                        text: 'El caso fue marcado como resuelto correctamente.',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+
+                    // Espera un poco para que el usuario vea la notificación antes de enviar
+                    setTimeout(() => {
+                        form.submit();
+                    }, 1500);
+                } else {
+                    this.checked = false; // Desmarca si el usuario cancela
+                }
+            });
         });
     });
 </script>
+
 <?php require_once 'layouts/footer.php'; ?>
+
+<style>
+    main {
+        padding: 50px 40px;
+        background: #f9fafb;
+        min-height: 100vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+        color: #1a202c;
+    }
+
+    p {
+        text-align: center;
+        font-size: 1rem;
+        margin-bottom: 30px;
+        color: #4a5568;
+    }
+
+    .table {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .table th {
+        background-color: #2d3748;
+        color: white;
+        padding: 16px;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .table td {
+        text-align: center;
+        padding: 14px;
+        font-size: 0.95rem;
+        color: #2d3748;
+        vertical-align: middle;
+    }
+
+    .table tr:hover {
+        background-color: #edf2f7;
+        transition: background-color 0.3s ease;
+    }
+
+    label {
+        font-size: 0.9rem;
+        color: #718096;
+    }
+
+    input[type='checkbox'].check-resolver {
+        accent-color: #38a169;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+
+    input[type='checkbox']:hover {
+        transform: scale(1.2);
+        transition: transform 0.2s ease;
+    }
+
+    @media (max-width: 768px) {
+        main {
+            padding: 30px 15px;
+        }
+
+        .table {
+            font-size: 0.85rem;
+        }
+
+        .table th, .table td {
+            padding: 10px;
+        }
+    }
+</style>
+

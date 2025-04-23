@@ -38,7 +38,7 @@ $encargados = $casosController->obtenerEncargados();
                 <td><?= htmlspecialchars($caso['descripcion']) ?></td>
                 <td><?= htmlspecialchars($caso['fecha_inicio']) ?></td>
                 <td>
-                    <form action="../controllers/CasosController.php" method="POST">
+                    <form class="asignación" action="../controllers/CasosController.php" method="POST">
                         <input type="hidden" name="accion" value="asignar">
                         <input type="hidden" name="caso_id" value="<?= $caso['id_caso'] ?>">
                         <select name="encargado_id" required>
@@ -53,7 +53,7 @@ $encargados = $casosController->obtenerEncargados();
                         <button type="submit">Asignar</button>
                     </form>
 
-                    <form action="../controllers/CasosController.php" method="POST" style="display:inline;">
+                    <form class="eliminacion" action="../controllers/CasosController.php" method="POST" style="display:inline;">
                         <input type="hidden" name="accion" value="eliminar">
                         <input type="hidden" name="caso_id" value="<?= htmlspecialchars($caso['id_caso']) ?>">
                         <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('¿Estás seguro de eliminar este caso?');">Eliminar</button>

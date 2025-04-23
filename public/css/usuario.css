@@ -1,101 +1,99 @@
-body {
-    text-align: center;
-    margin: 20px;
-    background-color: #f9f9f9;
-}
 
 
-h2, h3 {
-    text-align: center;
-    color: #444;
-}
-
-main{
-    gap: 5px;
-}
-
-/* Formulario de Creación */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 15px;
-    background: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-input, select, button {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-button {
-    background: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button:hover {
-    background: #0056b3;
-}
-
-/* Tabla de Usuarios */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-table th, table td {
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-    font-size: 13px;
-}
-
-table th {
-    background: #007bff;
-    color: white;
-}
 
 
-.fs-custom {
-    font-size: 1.7rem;
-    padding: 18px 15px;
-}
 
-table tr:nth-child(even) {
-    background: #f2f2f2;
-}
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #d8d8d8;
+        color: #2d3748;
+        margin: 0;
+        padding: 0;
+    }
+    
 
-/* Botones de Acciones */
-form[action*='editar'], form[action*='eliminar'] {
-    display: inline;
-}
+    .content-wrapper {
+            background-color: #fdfdfd;
+            padding: 40px 20px;
+            min-height: 110vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+    }
+        
+        
+    .dashboard-table {
+            width: 100%;
+            max-width: 1000px;
+            border-radius: 15px;
+            padding: 20px;
+            background-color: #f1f1f1;
+            min-height: 300px;
+    }
+        
 
-form[action*='eliminar'] button {
-    background: #dc3545;
-}
+    .dashboard-table h3 {
+        font-weight: 600;
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
 
-form[action*='eliminar'] button:hover {
-    background: #a71d2a;
-}
+    .dashboard-table table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
 
-/* Enlace de Volver */
-a {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-}
+    .dashboard-table th {
+        background-color: #f7f7f7;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        color: #a0aec0;
+        border-bottom: 1px solid #edf2f7;
+        padding: 12px;
+        text-align: left;
+    }
 
-a:hover {
-    text-decoration: underline;
-}
+    .dashboard-table td {
+        padding: 12px;
+        vertical-align: middle;
+        border-bottom: 1px solid #edf2f7;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .user-info img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .badge {
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .badge-success {
+        background-color: #48bb78;
+        color: white;
+    }
+
+    .badge-danger {
+        background-color: #a0aec0;
+        color: white;
+    }
+
+    .btn-sm {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+        border-radius: 6px;
+    }
+
