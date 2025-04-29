@@ -131,7 +131,7 @@ $reportes_totales = $stmt->fetch()['total'];
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <div class="ms-3">
-                        <h5 class="card-title">Reportes</h5>
+                        <h5 class="card-title">Lista - Reportes</h5>
                         <p class="card-value"><?php echo $reportes_totales; ?></p>
                     </div>
                 </div>

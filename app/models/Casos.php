@@ -58,7 +58,14 @@ class Casos {
     
 
     public function obtenerCasosResueltosPorEncargado($id_encargado) {
-        $sql = "SELECT * FROM casos_denuncias WHERE estado = 'resuelto' AND encargado_id = ?";
+        $sql = "SELECT c.id_caso, c.descripcion, c.fecha_inicio, c.fecha_fin, c.estado,
+                           c.dni_usuario,
+                       p.NOMBRE_USUARIO AS nombre, 
+                       p.APELLIDOPA_USUARIO AS apellido_paterno, 
+                       p.APELLIDOMA_USUARIO AS apellido_materno
+                FROM casos_denuncias c
+                JOIN personas_completado p ON c.dni_usuario = p.DNI_USUARIO
+                WHERE c.estado = 'resuelto' AND c.encargado_id = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id_encargado]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -66,8 +73,9 @@ class Casos {
     
     
     
+    
     public function resolverCaso($caso_id) {
-        $sql = "UPDATE casos SET estado = 'resuelto' WHERE id_caso = ?";
+        $sql = "UPDATE casos_denuncias SET estado = 'resuelto' WHERE id_caso = ?";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$caso_id]);
     }
@@ -83,12 +91,10 @@ class Casos {
     
 
     public function cerrarCaso($caso_id) {
-        
-        $sql = "UPDATE casos_denuncias SET estado = 'resuelto' WHERE id_caso = ?";
+        $sql = "UPDATE casos_denuncias SET estado = 'resuelto', fecha_fin = NOW() WHERE id_caso = ?";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$caso_id]);
     }
-    
     
 }
 ?>

@@ -9,6 +9,40 @@ $casosAsignados = $casosController->obtenerTodosLosCasosAsignados();
 $casosController->manejarFormularioResolver();
 ?>
 
+
+
+<main class="casos-container">
+    <h2>Lista de Casos Asignados</h2>
+    <table class="table-casos">
+        <thead>
+            <tr>
+                <th>DNI</th>
+                <th>Denunciante</th>
+                <th>Descripción</th>
+                <th>Estado</th>
+                <th>Encargado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($casosAsignados as $caso): ?>
+                <tr>
+                    <td><?= htmlspecialchars($caso['DNI_USUARIO']) ?></td>
+                    <td><?= htmlspecialchars($caso['NOMBRE_USUARIO'] . ' ' . $caso['APELLIDOPA_USUARIO'] . ' ' . $caso['APELLIDOMA_USUARIO']) ?></td>
+                    <td><?= htmlspecialchars($caso['descripcion']) ?></td>
+                    <td>
+                        <?php if ($caso['estado'] === 'resuelto'): ?>
+                            <span class="badge bg-success">Resuelto</span>
+                        <?php else: ?>
+                            <span class="badge bg-warning">Pendiente</span>
+                        <?php endif; ?>
+                    </td>
+                    <td><?= htmlspecialchars($caso['encargado_nombre'] . ' ' . $caso['apellidopa'] . ' ' . $caso['apellidoma']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</main>
+
 <style>
     .casos-container {
         background-color: #f8fafc;
@@ -72,37 +106,5 @@ $casosController->manejarFormularioResolver();
         color: #2d3748;
     }
 </style>
-
-<main class="casos-container">
-    <h2>Lista de Casos Asignados</h2>
-    <table class="table-casos">
-        <thead>
-            <tr>
-                <th>DNI</th>
-                <th>Denunciante</th>
-                <th>Descripción</th>
-                <th>Estado</th>
-                <th>Encargado</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($casosAsignados as $caso): ?>
-                <tr>
-                    <td><?= htmlspecialchars($caso['DNI_USUARIO']) ?></td>
-                    <td><?= htmlspecialchars($caso['NOMBRE_USUARIO'] . ' ' . $caso['APELLIDOPA_USUARIO'] . ' ' . $caso['APELLIDOMA_USUARIO']) ?></td>
-                    <td><?= htmlspecialchars($caso['descripcion']) ?></td>
-                    <td>
-                        <?php if ($caso['estado'] === 'resuelto'): ?>
-                            <span class="badge bg-success">Resuelto</span>
-                        <?php else: ?>
-                            <span class="badge bg-warning">Pendiente</span>
-                        <?php endif; ?>
-                    </td>
-                    <td><?= htmlspecialchars($caso['encargado_nombre'] . ' ' . $caso['apellidopa'] . ' ' . $caso['apellidoma']) ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-</main>
 
 <?php require_once 'layouts/footer.php'; ?>

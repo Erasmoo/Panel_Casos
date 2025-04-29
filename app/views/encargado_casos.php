@@ -1,31 +1,37 @@
 <?php
 require_once 'layouts/header.php';
 require_once 'layouts/sidebar_encargado.php';
-session_start();
 require '../config/database.php';
-
-
 require_once '../controllers/CasosController.php';
 
-
+session_start();
 
 $usuario_id = $_SESSION['usuario'];
 $conn = Database::connect();
 
-$sql = "SELECT * FROM casos_denuncias WHERE encargado_id = ? AND estado = 'pendiente'";
+$sql = "SELECT c.*, 
+               p.NOMBRE_USUARIO AS nombre, 
+               p.APELLIDOPA_USUARIO AS apellido_paterno, 
+               p.APELLIDOMA_USUARIO AS apellido_materno 
+        FROM casos_denuncias c
+        JOIN personas_completado p ON c.dni_usuario = p.DNI_USUARIO
+        WHERE c.encargado_id = ? AND c.estado = 'pendiente'";
+
 $stmt = $conn->prepare($sql);
 $stmt->execute([$usuario_id]);
-$casos = $stmt->fetchAll();
+$casos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <main>
     <h2>Casos Asignados</h2>
     <p>Aquí puedes ver los casos que te han sido asignados.</p>
-    <table class="table">
+    <table class="table display" id="tablaCasos">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>DNI</th>
+                <th>Denunciante</th>
                 <th>Descripción</th>
                 <th>Estado</th>
             </tr>
@@ -35,6 +41,7 @@ $casos = $stmt->fetchAll();
             <tr>
                 <td><?= htmlspecialchars($caso['id_caso']) ?></td>
                 <td><?= htmlspecialchars($caso['dni_usuario']) ?></td>
+                <td><?= htmlspecialchars($caso['nombre'] . ' ' . $caso['apellido_paterno'] . ' ' . $caso['apellido_materno']) ?></td>
                 <td><?= htmlspecialchars($caso['descripcion']) ?></td>
                 <td>
                     <form action="../controllers/CasosController.php" method="POST" style="display: flex; align-items: center;">
@@ -49,6 +56,21 @@ $casos = $stmt->fetchAll();
         </tbody>
     </table>
 </main>
+
+
+<script>
+    $(document).ready(function () {
+        $('#tablaCasos').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+            },
+            pageLength: 5
+        });
+    });
+</script>
+
+
+
 
 <script>
     document.querySelectorAll('.check-resolver').forEach(function(checkbox) {
