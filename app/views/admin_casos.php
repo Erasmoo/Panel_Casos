@@ -16,6 +16,17 @@ $encargados = $casosController->obtenerEncargados();
 
 <main>
     <h2>Casos Pendientes</h2>
+        <?php if (isset($_SESSION['mensaje'])): ?>
+        <div class="alert alert-<?= $_SESSION['tipo_mensaje'] ?> alert-dismissible fade show" role="alert">
+            <?= $_SESSION['mensaje'] ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+        <?php unset($_SESSION['mensaje'], $_SESSION['tipo_mensaje']); ?>
+    <?php endif; ?>
+
+    
+
+
     <table id="miTabla" class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
@@ -58,6 +69,7 @@ $encargados = $casosController->obtenerEncargados();
                         <input type="hidden" name="caso_id" value="<?= htmlspecialchars($caso['id_caso']) ?>">
                         <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('¿Estás seguro de eliminar este caso?');">Eliminar</button>
                     </form>
+
                 </td>
             </tr>
             <?php endforeach; ?>

@@ -26,6 +26,14 @@ $casos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <main>
     <h2>Casos Asignados</h2>
     <p>Aquí puedes ver los casos que te han sido asignados.</p>
+        <?php if (isset($_SESSION['mensaje'])): ?>
+        <div class="alert alert-<?= $_SESSION['tipo_mensaje'] ?> alert-dismissible fade show" role="alert">
+            <?= $_SESSION['mensaje'] ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+        <?php unset($_SESSION['mensaje'], $_SESSION['tipo_mensaje']); ?>
+    <?php endif; ?>
+
     <table class="table display" id="tablaCasos">
         <thead>
             <tr>

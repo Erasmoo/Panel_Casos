@@ -30,62 +30,72 @@ class CasosController {
     
     
     public function asignarCaso() {
+        session_start(); // Asegúrate de iniciar la sesión aquí si aún no está
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $caso_id = $_POST['caso_id'];
             $encargado_id = $_POST['encargado_id'];
     
             if ($this->casosModel->asignarCaso($caso_id, $encargado_id)) {
-                echo "<script>alert('Caso asignado correctamente'); window.location.href='../views/admin_casos.php';</script>";
+                $_SESSION['mensaje'] = 'El caso fue asignado correctamente al encargado.';
+                $_SESSION['tipo_mensaje'] = 'success';
             } else {
-                echo "<script>alert('Error al asignar el caso'); window.location.href='../views/admin_casos.php';</script>";
+                $_SESSION['mensaje'] = 'Hubo un error al asignar el caso. Inténtelo nuevamente.';
+                $_SESSION['tipo_mensaje'] = 'danger';
             }
+    
+            header('Location: ../views/admin_casos.php');
+            exit();
         }
     }
-    
     
     
     
 
     public function eliminarCaso() {
-        if (isset($_POST['caso_id'])) {
-        
-            
+        session_start(); // Asegúrate de que la sesión esté iniciada aquí también
+    
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $caso_id = $_POST['caso_id'];
     
             if ($this->casosModel->eliminarCaso($caso_id)) {
-                $_SESSION['mensaje'] = "Caso eliminado correctamente.";
+                $_SESSION['mensaje'] = 'El caso ha sido eliminado correctamente.';
+                $_SESSION['tipo_mensaje'] = 'success';
             } else {
-                $_SESSION['error'] = "Error al eliminar el caso.";
+                $_SESSION['mensaje'] = 'No se pudo eliminar el caso. Intente nuevamente.';
+                $_SESSION['tipo_mensaje'] = 'danger';
             }
+    
+            header('Location: ../views/admin_casos.php');
+            exit();
         }
-        header('Location: ../views/admin_casos.php');
-        exit();
     }
+    
     
 
     public function cerrarCaso() {
+        session_start();
+    
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $caso_id = $_POST['caso_id'];
     
             require_once '../config/database.php';
             $conn = Database::connect();
     
-            // Cambiar el estado del caso a 'resuelto'
             $sql = "UPDATE casos_denuncias SET estado = 'resuelto', fecha_fin = NOW() WHERE id_caso = ?";
             $stmt = $conn->prepare($sql);
             if ($stmt->execute([$caso_id])) {
-                echo "<script>
-                    alert('Caso marcado como resuelto');
-                    window.location.href='../views/encargado_casos.php';
-                </script>";
+                $_SESSION['mensaje'] = 'El caso ha sido marcado como resuelto correctamente.';
+                $_SESSION['tipo_mensaje'] = 'success';
             } else {
-                echo "<script>
-                    alert('Error al actualizar el estado del caso');
-                    window.location.href='../views/encargado_casos.php';
-                </script>";
+                $_SESSION['mensaje'] = 'No se pudo actualizar el estado del caso.';
+                $_SESSION['tipo_mensaje'] = 'danger';
             }
+    
+            header('Location: ../views/encargado_casos.php');
+            exit();
         }
     }
+    
     
     
 
