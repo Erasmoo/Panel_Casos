@@ -46,7 +46,7 @@ $encargados = $casosController->obtenerEncargados();
                 <td><?= htmlspecialchars($caso['NOMBRE_USUARIO'] . ' ' . $caso['APELLIDOPA_USUARIO'] . ' ' . $caso['APELLIDOMA_USUARIO']) ?></td>
                 <td><?= htmlspecialchars($caso['TELEFONO_USUARIO']) ?></td>
                 <td><?= htmlspecialchars($caso['DIRECCION_USUARIO']) ?></td>
-                <td><?= htmlspecialchars($caso['descripcion']) ?></td>
+                <td><?= htmlspecialchars($caso['DESCRIPCION']) ?></td>
                 <td><?= htmlspecialchars($caso['fecha_inicio']) ?></td>
                 <td>
                     <form class="asignación" action="../controllers/CasosController.php" method="POST">

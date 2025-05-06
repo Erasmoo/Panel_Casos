@@ -12,7 +12,8 @@ $conn = Database::connect();
 $sql = "SELECT c.*, 
                p.NOMBRE_USUARIO AS nombre, 
                p.APELLIDOPA_USUARIO AS apellido_paterno, 
-               p.APELLIDOMA_USUARIO AS apellido_materno 
+               p.APELLIDOMA_USUARIO AS apellido_materno,
+               p.DESCRIPCION
         FROM casos_denuncias c
         JOIN personas_completado p ON c.dni_usuario = p.DNI_USUARIO
         WHERE c.encargado_id = ? AND c.estado = 'pendiente'";
@@ -50,7 +51,7 @@ $casos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <td><?= htmlspecialchars($caso['id_caso']) ?></td>
                 <td><?= htmlspecialchars($caso['dni_usuario']) ?></td>
                 <td><?= htmlspecialchars($caso['nombre'] . ' ' . $caso['apellido_paterno'] . ' ' . $caso['apellido_materno']) ?></td>
-                <td><?= htmlspecialchars($caso['descripcion']) ?></td>
+                <td><?= htmlspecialchars($caso['DESCRIPCION']) ?></td>
                 <td>
                     <form action="../controllers/CasosController.php" method="POST" style="display: flex; align-items: center;">
                         <input type="hidden" name="accion" value="cerrar">
@@ -149,21 +150,22 @@ $casos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         border-radius: 12px;
         overflow: hidden;
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-        width: 200px;
+        width: 100%;
     }
 
     .table th {
         background-color: #2d3748;
         color: white;
-        padding: 16px;
-        font-size: 1rem;
+        padding: 20px;  /* Aumenté el padding */
+        font-size: .9rem;  /* Aumenté el tamaño de la fuente */
         text-align: center;
+        min-width: 120px;  /* Ancho mínimo para las columnas */
     }
 
     .table td {
         text-align: center;
-        padding: 14px;
-        font-size: 0.95rem;
+        padding: 20px;  /* Aumenté el padding */
+        font-size: 1.02rem;  /* Aumenté el tamaño de la fuente */
         color: #2d3748;
         vertical-align: middle;
     }
@@ -174,7 +176,7 @@ $casos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     label {
-        font-size: 0.9rem;
+        font-size: 1rem;  /* Aumenté el tamaño de la fuente */
         color: #718096;
     }
 
@@ -182,10 +184,11 @@ $casos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         accent-color: #38a169;
         margin-left: 10px;
         cursor: pointer;
+        transform: scale(1.5);  /* Aumenté el tamaño del checkbox */
     }
 
     input[type='checkbox']:hover {
-        transform: scale(1.2);
+        transform: scale(1.7);  /* Aumenté el tamaño del checkbox al pasar el cursor */
         transition: transform 0.2s ease;
     }
 
@@ -195,12 +198,13 @@ $casos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .table {
-            font-size: 0.85rem;
+            font-size: 1rem;  /* Ajusté el tamaño de la fuente en móviles */
         }
 
         .table th, .table td {
-            padding: 10px;
+            padding: 15px;  /* Ajusté el padding para pantallas pequeñas */
         }
     }
 </style>
+
 

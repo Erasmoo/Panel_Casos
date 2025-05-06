@@ -78,7 +78,7 @@ $casosResueltos = $casosController->obtenerCasosResueltosPorEncargado($_SESSION[
                     <tr>
                         <td><?= htmlspecialchars($caso['dni_usuario']) ?></td>
                         <td><?= htmlspecialchars($caso['nombre'] . ' ' . $caso['apellido_paterno'] . ' ' . $caso['apellido_materno']) ?></td>
-                        <td><?= htmlspecialchars($caso['descripcion']) ?></td>
+                        <td><?= htmlspecialchars($caso['DESCRIPCION']) ?></td>
                         <td><?= date('d/m/Y H:i', strtotime($caso['fecha_fin'])) ?></td>
                     </tr>
                 <?php endforeach; ?>

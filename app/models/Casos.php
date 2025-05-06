@@ -12,7 +12,7 @@ class Casos {
     // Obtener todos los casos pendientes con la información del denunciante
     public function obtenerCasosPendientes() {
         $sql = "SELECT c.id_caso, p.DNI_USUARIO, p.NOMBRE_USUARIO, p.APELLIDOPA_USUARIO, p.APELLIDOMA_USUARIO, 
-                       p.TELEFONO_USUARIO, p.DIRECCION_USUARIO, c.descripcion, 
+                       p.TELEFONO_USUARIO, p.DIRECCION_USUARIO, p.DESCRIPCION, 
                        c.fecha_inicio, c.fecha_fin, c.estado, c.encargado_id 
                 FROM casos_denuncias c
                 JOIN personas_completado p ON c.dni_usuario = p.DNI_USUARIO
@@ -58,7 +58,7 @@ class Casos {
     
 
     public function obtenerCasosResueltosPorEncargado($id_encargado) {
-        $sql = "SELECT c.id_caso, c.descripcion, c.fecha_inicio, c.fecha_fin, c.estado,
+        $sql = "SELECT c.id_caso, p.DESCRIPCION, c.fecha_inicio, c.fecha_fin, c.estado,
                            c.dni_usuario,
                        p.NOMBRE_USUARIO AS nombre, 
                        p.APELLIDOPA_USUARIO AS apellido_paterno, 

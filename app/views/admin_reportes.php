@@ -28,7 +28,7 @@ $casosController->manejarFormularioResolver();
                 <tr>
                     <td><?= htmlspecialchars($caso['DNI_USUARIO']) ?></td>
                     <td><?= htmlspecialchars($caso['NOMBRE_USUARIO'] . ' ' . $caso['APELLIDOPA_USUARIO'] . ' ' . $caso['APELLIDOMA_USUARIO']) ?></td>
-                    <td><?= htmlspecialchars($caso['descripcion']) ?></td>
+                    <td><?= htmlspecialchars($caso['DESCRIPCION']) ?></td>
                     <td>
                         <?php if ($caso['estado'] === 'resuelto'): ?>
                             <span class="badge bg-success">Resuelto</span>
