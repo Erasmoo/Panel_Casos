@@ -149,6 +149,7 @@ $casos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         border-radius: 12px;
         overflow: hidden;
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        width: 200px;
     }
 
     .table th {
