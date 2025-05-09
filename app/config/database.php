@@ -3,7 +3,7 @@ class Database {
     private static $host = "localhost";
     private static $db_name = "PanelUnu";
     private static $username = "root";
-    private static $password = "";
+    private static $password = "root";  //si no tiene contraseña poner en blanco
     private static $conn = null;
 
     public static function connect() {
